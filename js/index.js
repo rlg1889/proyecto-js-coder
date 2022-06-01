@@ -40,6 +40,8 @@ function guardarDatos() {
     localStorage.NombreUsuario = document.getElementById("usuario").value;
     localStorage.CostoIngresado = document.getElementById("num").value;
     localStorage.TipoPublicacion = document.getElementById("pub").value;
+    localStorage.setItem ("precio",precioFinal);
+    localStorage.setItem ("comision",montoComision);
 }
 
 // Utilizo fetch para traer informacion del decimo objeto de la API de jsonplaceholder para mostrar por consola el titulo y el contenido.
@@ -70,13 +72,7 @@ function calculo() {
     // uso de libreria SweetAlert
     let busqueda = buscarPublicacion(publicaciones, lista());
     calcComision(costo,busqueda.comision);
-    let div = document.createElement("div");
-        div.innerHTML = `<h2>${usuario} tu publicación tendra un precio final de: $${precioFinal}</h2>
-                        <p>\nEl monto de la comisión es de: $${montoComision}</p>
-                        <hr>`;
-        document.body.appendChild(div);
     guardarDatos();
-
     // uso de libreria Toastify    
         Toastify({
             text: "Se calculo el precio final!",
@@ -92,5 +88,27 @@ function calculo() {
                 background: 'linear-gradient(to right, #00b09b, #96c92d)'
             }    
         }).showToast();
-    
+        
+        let div = document.createElement("div");
+        div.innerHTML = `<h2>${usuario} tu publicación tendra un precio final de: $${precioFinal}</h2>
+                        <p>\nEl monto de la comisión es de: $${montoComision}</p>
+                        <hr>`;
+        document.body.appendChild(div);
+
+
+
 }
+
+let usuarioLS = (localStorage.getItem('NombreUsuario'));
+let precioFinalLS = (localStorage.getItem('precio'));
+let montoComisionLS = (localStorage.getItem('comision'));    
+
+console.log(usuarioLS);
+console.log(precioFinalLS);
+console.log(montoComisionLS);
+
+let div = document.createElement("div");
+div.innerHTML = `<h2>${usuarioLS} tu publicación tendra un precio final de: $${precioFinalLS}</h2>
+                <p>\nEl monto de la comisión es de: $${montoComisionLS}</p>
+                <hr>`;
+document.body.appendChild(div);
